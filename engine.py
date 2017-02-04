@@ -1,6 +1,12 @@
 def move(makan):                                    #تابعی که اسم و مکان مهره ای را میگیرد و تمام حرکات ممکن را نمایش میدهد
 
-    def asb():
+    def asb(name,i,j):
+        a=[]
+        halatha=[[-1,-2],[1,-2],[2,-1],[2,1],[1,2],[-1,2],[-2,1],[-2,-1]]
+        for x in halatha:
+            if i+x[0]>=0 and i+x[0]<=7 and j+x[1]>=0 and j+x[1]<=7:
+                a.append([name,i+x[0],j+x[1]])
+        return a         
 
     def fil():
 
@@ -15,14 +21,14 @@ def move(makan):                                    #تابعی که اسم و �
 
 
     if makan[0]=="wasb" or makan[0]=="basb":
-        harkat=asb(makan[1],makan[2])
+        harkat=asb(makan[0],makan[1],makan[2])
     elif makan[0]=="wfil" or makan[0]=="bfil":
-        harkat=fil(makan[1],makan[2])
+        harkat=fil(makan[0],makan[1],makan[2])
     elif makan[0]=="wvazir" or makan[0]=="bvazir":
-        harkat=vazir(makan[1],makan[2])
+        harkat=vazir(makan[0],makan[1],makan[2])
     elif makan[0]=="wpawn" or makan[0]=="bpawn":
-        harkat=pawn(makan[1],makan[2])
+        harkat=pawn(makan[0],makan[1],makan[2])
     elif makan[0]=="wking" or makan[0]=="bking":
-        harkat=king(makan[1],makan[2])
+        harkat=king(makan[0],makan[1],makan[2])
     elif makan[0]=="wrokh" or makan[0]=="brokh":
-        harkat=rokh(makan[1],makan[2])
+        harkat=rokh(makan[0],makan[1],makan[2])
