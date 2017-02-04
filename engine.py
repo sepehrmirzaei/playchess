@@ -6,16 +6,9 @@ def move(makan):                                    #تابعی که اسم و �
         for x in halatha:
             if i+x[0]>=0 and i+x[0]<=7 and j+x[1]>=0 and j+x[1]<=7:
                 a.append([name,i+x[0],j+x[1]])
-        return a
+        return a         
 
-    def fil(name,i,j):
-        f=[]
-        y=i+j
-        for x in range(y+1):
-            f.append([name,x,y-x])
-        for z in range(8-(j-i)):
-            f.append([name,z,j-i+z])
-        return f    
+    def fil():
 
     def vazir():
 
