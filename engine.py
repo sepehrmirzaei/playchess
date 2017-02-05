@@ -6,31 +6,17 @@ def move(makan):                                    #تابعی که اسم و �
         for x in halatha:
             if i+x[0]>=0 and i+x[0]<=7 and j+x[1]>=0 and j+x[1]<=7:
                 a.append([name,i+x[0],j+x[1]])
-        for x in makanha:
-            for z in range(len(a)):
-                w=x[0]
-                q=a[z][0]
-                if x[1]==a[z][1] and x[2]==a[z][2] and w[0]==q[0]:
-                    del(a[z])
+        return a         
 
-        return a
+    def fil():
 
-    def fil(name,i,j):
-        f=[]
-        y=i+j
-        for x in range(y+1):
-            f.append([name,x,y-x])
-        for z in range(8-(j-i)):
-            f.append([name,z,j-i+z])
-        return f
+    def vazir():
 
-    #def vazir():
+    def pawn():
 
-    #def pawn():
+    def king():
 
-    #def king():
-
-    #def rokh():
+    def rokh():
 
 
 
@@ -46,8 +32,3 @@ def move(makan):                                    #تابعی که اسم و �
         harkat=king(makan[0],makan[1],makan[2])
     elif makan[0]=="wrokh" or makan[0]=="brokh":
         harkat=rokh(makan[0],makan[1],makan[2])
-
-    return(harkat)
-
-
-makanha=[["wasb",2,1],["wpawn",0,0],["bpawn",0,2]]                                              #ماتریسی که مکان تمام مهره ها رو داره
