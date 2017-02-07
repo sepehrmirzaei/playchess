@@ -95,9 +95,78 @@ def move(makan):                                    #تابعی که اسم و �
         return r
     def pawn(name,i,j):
         p=[]
-        if name[0]=="w":
+        n=0
+        m=0
+        if name[0]=="w":                                                       #پیاده های سفید
             if j==6:
-                
+                for x in makanha:
+                    if x[0][0]=="b" and (x[1]==i-1 or x[1]==i+1) and x[2]==j-1:
+                        p.append([name,x[1],x[2]])
+                    elif x[1]==i and (x[2]==j-1):
+                        n=1
+                    elif x[1]==i and x[2]==j-2:
+                        m=1
+                if n==0:
+                    p.append([name,i,j-1])
+                if m==0:
+                    p.append([name,i,j-2])
+            n=0
+            if j<6 and j>0:
+                if j==1:
+                    for x in makanha:
+                        if x[0][0]=="b" and (x[1]==i-1 or x[1]==i+1) and x[2]==j-1:
+                            p.append(["wvazir",x[1],0])
+                    p.append("wvazir",i,0)
+                    for h in makanha:
+                        if h[1]==i and h[2]==0:
+                            del(p[len(p)-1])
+
+                else:
+                    for x in makanha:
+                        if x[0][0]=="b" and (x[1]==i-1 or x[1]==i+1) and x[2]==j-1:
+                            p.append([name,x[1],x[2]])
+                        elif x[1]==i and (x[2]==j-1):
+                            n=1
+                    if n==0:
+                        p.append([name,i,j-1])
+
+
+        n, m=0, 0
+        if name[0]=="b":                                                            #پیاده های سیاه
+            if j==1:
+                for x in makanha:
+                    if x[0][0]=="w" and (x[1]==i-1 or x[1]==i+1) and x[2]==j+1:
+                        p.append([name,x[1],x[2]])
+                    elif x[1]==i and (x[2]==j+1):
+                        n=1
+                    elif x[1]==i and x[2]==j+2:
+                        m=1
+                if n==0:
+                    p.append([name,i,j+1])
+                if m==0:
+                    p.append([name,i,j+2])
+            n=0
+
+            if j>1 and j<7:
+                if j==6:
+                    for x in makanha:
+                        if x[0][0]=="w" and (x[1]==i-1 or x[1]==i+1) and x[2]==j+1:
+                            p.append(["bvazir",x[1],7])
+                    p.append(["bvazir",i,7])
+                    for h in makanha:
+                        if h[1]==i and h[2]==7:
+                            del(p[len(p)-1])
+
+                else:
+                    for x in makanha:
+                        if x[0][0]=="w" and (x[1]==i-1 or x[1]==i+1) and x[2]==j+1:
+                            p.append([name,x[1],x[2]])
+                        elif x[1]==i and (x[2]==j+1):
+                            n=1
+                    if n==0:
+                        p.append([name,i,j+1])
+        return p
+
 
     #def king():
 
@@ -121,5 +190,5 @@ def move(makan):                                    #تابعی که اسم و �
     return(harkat)
 
 
-makanha=[["wrokh",3,3],["bpawn",3,5],["wpawn",5,3],["wpawn",2,5]]                                              #ماتریسی که مکان تمام مهره ها رو داره
-print(move(["wrokh",3,3]))
+makanha=[["bpawn",6,6],["basb",7,7],["wfil",5,7],["bpawn",6,7]]                                              #ماتریسی که مکان تمام مهره ها رو داره
+print(move(["bpawn",6,6]))
