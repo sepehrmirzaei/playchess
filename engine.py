@@ -169,20 +169,21 @@ def move(makan):                                    #تابعی که اسم و �
 
 
     def king(name,i,j):
+        k=[]
         if i>0 and i<7 and j>0 and j<7:
             k=[[name,i-1,j-1],[name,i,j-1],[name,i+1,j-1],[name,i+1,j],[name,i+1,j+1],[name,i,j+1],[name,i-1,j+1],[name,i-1,j]]
         if (i==0 or i==7) and j>0 and j<7:
-            k=k+[[name,i,j+1],[name,i,j-1]]
+            k=k+[[name,i,j+1],[name,i,j-1],[name,i-1,j-1],[name,i-1,j],[name,i-1,j+1]]
         if (j==0 or j==7) and i>0 and i<7:
-            k=k+[[name,i+1,j],[name,i-1,j]]
+            k=k+[[name,i+1,j],[name,i-1,j],[name,i-1,j+1],[name,i,j+1],[name,i+1,j+1]]
         if (j==0 and i==0):
-            k=k+[[name,i,j+1],[name,i+1,j]]
+            k=k+[[name,i,j+1],[name,i+1,j],[name,i+1,j+1]]
         if (j==7 and i==0):
-            k=k+[[name,i,j-1],[name,i+1,j]]
+            k=k+[[name,i,j-1],[name,i+1,j],[name,i+1,j-1]]
         if (j==0 and i==7):
-            k=k+[[name,i-1,j],[name,i,j+1]]
+            k=k+[[name,i-1,j],[name,i,j+1],[name,i-1,j+1]]
         if (j==7 and i==7):
-            k=k+[[name,i,j-1],[name,i-1,j]]
+            k=k+[[name,i,j-1],[name,i-1,j],[name,i-1,j-1]]
         chek=[]
         for x in makanha:
             if x[0][0]!=name[0]:
@@ -195,6 +196,40 @@ def move(makan):                                    #تابعی که اسم و �
         for x in k:
             if x!=[-5,-5,-5]:
                 s.append(x)
+        o=0
+        if name[0]=="w" and i==4 and j==7:
+            if ["wrokh",7,7] or ["wrokh",0,7] in makanha:
+                for x in makanha:
+                    if (x[1]==5 or x[1]==6) and x[2]==7:
+                        o=1
+                        break
+            a, b=-1, -1
+            if o==0:
+                if ["wrokh",7,7] in makanha:
+                    a=makanha.index(["wrokh",7,7])
+                if ["wrokh",0,7] in makanha:
+                    b=makanha.index(["wrokh",0,7])
+                if a!=-1:
+                    s=s+["wking",6,7]+["wrokh",5,7]
+                if b!=-1:
+                    s=s+["wking",2,7]+["wrokh",3,7]
+        o=0
+        if name[0]=="b" and i==4 and j==0:
+            if ["brokh",0,0] or ["wrokh",7,0] in makanha:
+                for x in makanha:
+                    if (x[1]==5 or x[1]==6) and x[2]==0:
+                        o=1
+                        break
+            a, b=-1, -1
+            if o==0:
+                if ["brokh",7,0] in makanha:
+                    a=makanha.index(["brokh",7,0])
+                if ["brokh",0,0] in makanha:
+                    b=makanha.index(["brokh",0,0])
+                if a!=-1:
+                    s=s+["bking",6,0]+["brokh",5,0]
+                if b!=-1:
+                    s=s+["bking",2,0]+["brokh",3,0]
         return s
     def vazir(name,i,j):
         v=[]
@@ -218,5 +253,5 @@ def move(makan):                                    #تابعی که اسم و �
     return(harkat)
 
 
-makanha=[["bking",5,5],["wasb",2,4],["wfil",3,6],["bpawn",3,3]]                                              #ماتریسی که مکان تمام مهره ها رو داره
-print(move(["bking",5,5]))
+makanha=[["bking",4,7],["wasb",2,4],["wfil",3,6],["wrokh",7,7]]                                              #ماتریسی که مکان تمام مهره ها رو داره
+print(move(["bking",4,7]))
