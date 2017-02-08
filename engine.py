@@ -6,24 +6,26 @@ def move(makan):                                    #تابعی که اسم و �
         for x in halatha:
             if i+x[0]>=0 and i+x[0]<=7 and j+x[1]>=0 and j+x[1]<=7:
                 a.append([name,i+x[0],j+x[1]])
+        s=[]
         for x in makanha:
             for z in range(len(a)):
                 w=x[0]
                 q=a[z][0]
                 if x[1]==a[z][1] and x[2]==a[z][2] and w[0]==q[0]:
-                    del(a[z])
-
-        return a
+                    a[z]=[-5,-5,-5]
+        for x in a:
+            if x!=[-5,-5,-5]:
+                s.append(x)
+        return s
 
     def fil(name,i,j):
         f=[]
-        y=i+j
-        for x in range(y+1):
-            if x!=i and y-x!=j:
-                f.append([name,x,y-x])
-        for z in range(8-(j-i)):
-            if x!=i and j-i+z!=j:
-                f.append([name,z,j-i+z])
+        for x in range(i-7,8-j):
+            if x!=0 and x+i<8 and x+i>-1 and x+j<8 and x+j>-1:
+                f.append([name,x+i,j+x])
+        for z in range(j-7,8-i):
+            if z!=0 and z+i>=0 and z+i<=7 and j-z>=0 and j-z<=7:
+                f.append([name,z+i,j-z])
         c=[]
         for x in makanha:
             for z in range(len(f)):
@@ -31,8 +33,6 @@ def move(makan):                                    #تابعی که اسم و �
                 q=f[z][0]
                 if x[1]==f[z][1] and x[2]==f[z][2]:
                     c.append(x)
-        print (f)
-        print (c)
         for x in c:
             for h in range(len(f)):
                 if f[h]!=0:
@@ -168,10 +168,38 @@ def move(makan):                                    #تابعی که اسم و �
         return p
 
 
-    #def king():
-
-    #def vazir():
-
+    def king(name,i,j):
+        if i>0 and i<7 and j>0 and j<7:
+            k=[[name,i-1,j-1],[name,i,j-1],[name,i+1,j-1],[name,i+1,j],[name,i+1,j+1],[name,i,j+1],[name,i-1,j+1],[name,i-1,j]]
+        if (i==0 or i==7) and j>0 and j<7:
+            k=k+[[name,i,j+1],[name,i,j-1]]
+        if (j==0 or j==7) and i>0 and i<7:
+            k=k+[[name,i+1,j],[name,i-1,j]]
+        if (j==0 and i==0):
+            k=k+[[name,i,j+1],[name,i+1,j]]
+        if (j==7 and i==0):
+            k=k+[[name,i,j-1],[name,i+1,j]]
+        if (j==0 and i==7):
+            k=k+[[name,i-1,j],[name,i,j+1]]
+        if (j==7 and i==7):
+            k=k+[[name,i,j-1],[name,i-1,j]]
+        chek=[]
+        for x in makanha:
+            if x[0][0]!=name[0]:
+                chek=chek+move(x)
+        for x in chek:
+            for y in range(len(k)):
+                if x[1]==k[y][1] and x[2]==k[y][2]:
+                    k[y]=[-5,-5,-5]
+        s=[]
+        for x in k:
+            if x!=[-5,-5,-5]:
+                s.append(x)
+        return s
+    def vazir(name,i,j):
+        v=[]
+        v=rokh(name,i,j)+fil(name,i,j)
+        return v
 
 
     if makan[0]=="wasb" or makan[0]=="basb":
@@ -190,5 +218,5 @@ def move(makan):                                    #تابعی که اسم و �
     return(harkat)
 
 
-makanha=[["bpawn",6,6],["basb",7,7],["wfil",5,7],["bpawn",6,7]]                                              #ماتریسی که مکان تمام مهره ها رو داره
-print(move(["bpawn",6,6]))
+makanha=[["bking",5,5],["wasb",2,4],["wfil",3,6],["bpawn",3,3]]                                              #ماتریسی که مکان تمام مهره ها رو داره
+print(move(["bking",5,5]))
