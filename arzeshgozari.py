@@ -1,13 +1,13 @@
-def kish(move):
+def kish(makanha,moving):
     newmakanha=[]
     for x in makanha:
-        if x[0]!=move[0] and not(move[1]==x[1] and move[2]==x[2]):
+        if x[0]!=moving[0] and not(moving[1]==x[1] and moving[2]==x[2]):
             newmakanha.append(x)
-    newmakanha.append(move)
+    newmakanha.append(moving)
     for x in newmakanha:
-        if x[0]="wking":
+        if x[0]=="wking":
             w=newmakanha.index(x)
-        elif x[0]="bking":
+        elif x[0]=="bking":
             b=newmakanha.index(x)
     iswchek="no"
     isbchek="no"
@@ -23,25 +23,25 @@ def kish(move):
                     isbchek="yes"
         achmaz="no"
         iskish="no"
-        if move[0][0]=="w" and iswchek=="yes":
+        if moving[0][0]=="w" and iswchek=="yes":
             achmaz="yes"
-        if move[0][0]=="b" and isbchek=="yes":
+        if moving[0][0]=="b" and isbchek=="yes":
             achmaz="yes"
-        if move[0][0]=="w" and isbchek=="yes":
+        if moving[0][0]=="w" and isbchek=="yes":
             iskish="yes"
-        if move[0][0]=="b" and iswchek=="yes":
+        if moving[0][0]=="b" and iswchek=="yes":
             iskish="yes"
     return (achmaz,iskish)
 
 
-def arzesh(move):
-    arzeshha={"wrokh":5 "wasb":3 "wfil":3.2 "wvazir":9 "wking":1000 "wpawn":1 "brokh":5 "basb":3 "bfil":3.2 "bvazir":9 "bking":1000 "bpawn":1}
+def arzesh(moving):
+    arzeshha={"wrokh":5, "wasb":3, "wfil":3.2, "wvazir":9,"wking":1000 ,"wpawn":1, "brokh":5 ,"basb":3, "bfil":3.2, "bvazir":9, "bking":1000, "bpawn":1}
     newmakanha=[]
     mainvalue=0
     for x in makanha:
-        if x[0]!=move[0] and not(move[1]==x[1] and move[2]==x[2]):
+        if x[0]!=moving[0] and not(moving[1]==x[1] and moving[2]==x[2]):
             newmakanha.append(x)
-    newmakanha.append(move)
+    newmakanha.append(moving)
     def arzeshmohreha(makanha,newmakanha):
         oldw, oldb, neww, newb=0, 0, 0, 0
         for x in makanha:
@@ -229,14 +229,14 @@ def arzesh(move):
         value=(wnew-wold)*0.1-(bnew-bold)*0.1
         return value
 
-    def makanpawn(move):
+    def makanpawn(mov):
         value=0
-        if move[0][0]=="w":
+        if mov[0][0]=="w":
             if x[1]<6 and x[1]>1 and x[2]>2:
                 value+=0.05
             if x[1]>5 :
                 value+=0.02
-        if move[0][0]=="b":
+        if mov[0][0]=="b":
             if x[1]<6 and x[1]>1 and x[2]<5:
                 value+=-0.05
             if x[1]>5 :
@@ -267,18 +267,18 @@ def arzesh(move):
 
 
     mainvalue+=arzeshmohreha(makanha,newmakanha)
-    if move[0][1:]=="pawn":
+    if moving[0][1:]=="pawn":
         mainvalue+=piadedoobl(makanha,newmakanha)+makanpawn(move)
-    elif move[0][1:]=="asb":
+    elif moving[0][1:]=="asb":
         mainvalue+=makanasb(makanha,newmakanha)
-    elif move[0][1:]=="fil":
+    elif moving[0][1:]=="fil":
         mainvalue+=makanfil(makanha,newmakanha)+bartaridofil(makanha,newmakanha)
-    elif move[0][1:]=="rokh":
+    elif moving[0][1:]=="rokh":
         mainvalue+=makanrokh(makanha,newmakanha)
-    elif move[0][1:]=="vazir":
+    elif moving[0][1:]=="vazir":
         mainvalue+=makanvazir(makanha,newmakanha)
-    elif move[0][1:]=="king":
+    elif moving[0][1:]=="king":
         mainvalue+=makanshah(makanha,newmakanha)
     natige=[mainvalue]
     natige=natige+newmakanha
-    return natige                  
+    return natige
