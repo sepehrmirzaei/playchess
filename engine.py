@@ -25,7 +25,7 @@ def move(makanha,makan):                                    #تابعی که ا�
             if x!=0 and x+i<8 and x+i>-1 and x+j<8 and x+j>-1:
                 f.append([name,x+i,j+x])
         for z in range(j-7,8-i):
-            if z!=0 and z+i>=0 and z+i<=7 and j-z>=0 and j-z<=7:
+            if z!=0 and z+i>-1 and z+i<8 and j-z>=0 and j-z<=7:
                 f.append([name,z+i,j-z])
         c=[]
         for x in makanha:
@@ -70,22 +70,22 @@ def move(makanha,makan):                                    #تابعی که ا�
         maxy=7
         for x in makanha:
             if x[0][0]==name[0]:
-                if x[1]<i and x[2]==j and x[1]>minx:
+                if x[1]<i and x[2]==j and x[1]>=minx:
                     minx=x[1]+1
-                elif x[1]>i and x[2]==j and x[1]<maxx:
+                elif x[1]>i and x[2]==j and x[1]<=maxx:
                     maxx=x[1]-1
-                elif x[1]==i and x[2]>j and x[2]<maxy:
+                elif x[1]==i and x[2]>j and x[2]<=maxy:
                     maxy=x[2]-1
-                elif x[1]==i and x[2]<j and x[2]>miny:
+                elif x[1]==i and x[2]<j and x[2]>=miny:
                     miny=x[2]+1
             else:
-                if x[1]<i and x[2]==j and x[1]>minx:
+                if x[1]<i and x[2]==j and x[1]>=minx:
                     minx=x[1]
-                elif x[1]>i and x[2]==j and x[1]<maxx:
+                elif x[1]>i and x[2]==j and x[1]<=maxx:
                     maxx=x[1]
-                elif x[1]==i and x[2]>j and x[2]<maxy:
+                elif x[1]==i and x[2]>j and x[2]<=maxy:
                     maxy=x[2]
-                elif x[1]==i and x[2]<j and x[2]>miny:
+                elif x[1]==i and x[2]<j and x[2]>=miny:
                     miny=x[2]
         for x in range(minx,maxx+1):
             if x!=i:
@@ -267,8 +267,8 @@ def move(makanha,makan):                                    #تابعی که ا�
 
 
 
-mainmakanha=[["wking",4,4],["wpawn",3,5],["bfil",4,0],["wrokh",0,0],["bpawn",1,2],["bking",7,1]]                                              #ماتریسی که مکان تمام مهره ها رو داره
-#print(move(mainmakanha,["wking",4,4]))
+mainmakanha=[["wking",1,4],["wpawn",3,5],["bfil",4,0],["wrokh",2,2],["bpawn",1,2],["bking",7,1]]                                              #ماتریسی که مکان تمام مهره ها رو داره
+#print(move(mainmakanha,["bfil",4,0]))
 
 def kish(makanha,moving):
     newmakanha=[]
@@ -458,22 +458,22 @@ def arzesh(makanha,moving):
         z=[]
         for x in makanha:
             if x[0]=="wrokh":
-                n.append(move(["wrokh",x[1],x[2]]))
+                n.append(move(makanha,["wrokh",x[1],x[2]]))
         a=len(n)
 
         for x in newmakanha:
             if x[0]=="wrokh":
-                m.append(move(["wrokh",x[1],x[2]]))
-        b=len[n]
+                m.append(move(newmakanha,["wrokh",x[1],x[2]]))
+        b=len(n)
         for x in makanha:
             if x[0]=="brokh":
-                w.append(move(["brokh",x[1],x[2]]))
+                w.append(move(makanha,["brokh",x[1],x[2]]))
         c=len(w)
 
         for x in newmakanha:
             if x[0]=="brokh":
-                z.append(move(["brokh",x[1],x[2]]))
-        d=len[z]
+                z.append(move(newmakanha,["brokh",x[1],x[2]]))
+        d=len(z)
         value=0
         value+=(b-a)*0.1-(d-c)*0.1
         return value
@@ -540,7 +540,7 @@ def arzesh(makanha,moving):
 
     mainvalue+=arzeshmohreha(makanha,newmakanha)
     if moving[0][1:]=="pawn":
-        mainvalue+=piadedoobl(makanha,newmakanha)+makanpawn(move)
+        mainvalue+=piadedoobl(makanha,newmakanha)+makanpawn(moving)
     elif moving[0][1:]=="asb":
         mainvalue+=makanasb(makanha,newmakanha)
     elif moving[0][1:]=="fil":
@@ -551,16 +551,103 @@ def arzesh(makanha,moving):
         mainvalue+=makanvazir(makanha,newmakanha)
     elif moving[0][1:]=="king":
         mainvalue+=makanshah(makanha,newmakanha)
-    natige=[mainvalue]
-    natige=natige+newmakanha
-    return natige
+
+    return mainvalue
+
+def nextmove(makanha,movi):
+    newmakanha=[]
+    for x in makanha:
+        if x[0]!=movi[0] and not(movi[1]==x[1] and movi[2]==x[2]):
+            newmakanha.append(x)
+    newmakanha.append(movi)
+    return newmakanha
 
 
-print(arzesh(mainmakanha,["bfil",2,2]))
+#print(nextmove(mainmakanha,["bfil",2,2]))
 
 #print(kish(mainmakanha,["bfil",2,2]))
-tamamhalat=[]
-def alfabeta(makanha,x,n):
-    a,b=kish(makanha,x)
-    if a=="no":
-        shit=arzesh(makanha,x)
+khar=[]
+min=-10000
+max=10000
+khar.append(0)
+khartamam=[]
+def example(makanha,n):
+    if n%2==0:
+        for x in makanha:
+            if x[0][0]=="b":
+                ss=move(makanha,x)
+                for y in ss:
+                    jigar=nextmove(makanha,y)
+                    if n-1>-1:
+                        if len(khar)<4:
+                            khar[0]=khar[0]+arzesh(makanha,y)
+                            khar.append(y)
+                            example(jigar,n-1)
+                            cop=khar.copy()
+                            khartamam.append(cop)
+                            khar.pop()
+                            khar[0]=0
+
+
+    else:
+            for x in makanha:
+                if x[0][0]=="w":
+                    ss=move(makanha,x)
+                    for y in ss:
+                        jigar=nextmove(makanha,y)
+                        if n-1>-1:
+                            if len(khar)<4:
+                                khar[0]=khar[0]+arzesh(makanha,y)
+                                khar.append(y)
+                                example(jigar,n-1)
+                                cop=khar.copy()
+                                khartamam.append(cop)
+                                khar.pop()
+                                khar[0]=0
+
+
+
+
+
+situations=[]
+example(mainmakanha,3)
+for x in khartamam:
+    if len(x)==4:
+        situations.append(x)
+print(situations)
+
+nomre=-1000
+khat2=[]
+bargozide=[]
+for i in range(len(situations)-1):
+    if situations[i][1]==situations[i+1][1] and situations[i][2]==situations[i+1][2] and situations[i][0]>nomre:
+        nomre=situations[i][0]
+        bargoz=situations[i]
+    elif situations[i][1]!=situations[i+1][1] or situations[i][2]!=situations[i+1][2]:
+        khat2.append(nomre)
+        bargozide.append(bargoz)
+        nomre=-1000
+print(khat2)
+print(bargozide)
+bargozidetar=[]
+khat1=[]
+nomre=1000
+for i in range(len(bargozide)-1):
+    if bargozide[i][1]==bargozide[i+1][1] and bargozide[i][0]<nomre:
+        nomre=bargozide[i][0]
+        bargoz=bargozide[i]
+    elif bargozide[i][1]!=bargozide[i+1][1]:
+        khat1.append(nomre)
+        bargozidetar.append(bargoz)
+        nomre=1000
+print(khat1)
+print(bargozidetar)
+minn=-1000
+
+for x in khat1:
+    if x>minn:
+        minn=x
+for x in bargozidetar:
+    if x[0]==minn:
+        print(x)
+        break
